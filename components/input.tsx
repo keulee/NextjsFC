@@ -18,7 +18,10 @@ export default function Input({
 }: propType) {
   return (
     <div>
-      <label className="block text-sm font-semibold text-slate-700">
+      <label
+        htmlFor={label}
+        className="block text-sm font-semibold text-slate-700"
+      >
         {label}
       </label>
       <input

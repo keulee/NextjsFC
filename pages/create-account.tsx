@@ -3,22 +3,51 @@
 import { useForm } from "react-hook-form";
 import Input from "../components/input";
 import cls from "../lib/utils";
+import useMutate from "../lib/useMutate";
+import { useRouter } from "next/router";
+
+interface inputType {
+  name: string;
+  email: string;
+}
 
 export default function CreateAccount() {
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm();
+  } = useForm<inputType>();
+  const [create, { data, loading, error }] = useMutate(
+    "/api/users/create-account"
+  );
+  const router = useRouter();
   //   console.log(watch());
-  const onValid = (data: any) => {
-    console.log(data);
+  const onValid = (input: inputType) => {
+    // console.log(data);
+    // const response = await fetch("/api/users/create-account", {
+    //   method: "POST",
+    //   headers: { "Content-Type": "application/json" },
+    //   body: JSON.stringify(input),
+    // });
+    // console.log(response);
+    // console.log(response);
+    create(input);
+    // console.log(loading);
+    // console.log(error);
   };
 
   const onError = (error: any) => {
     console.log(error);
   };
-
+  console.log(data?.ok, loading, error);
+  if (data?.ok && data?.isExisted) {
+    alert("Account alread existed! Log in please");
+    router.push("/log-in");
+  }
+  if (data?.ok && !data?.isExisted) {
+    alert("Account created ! Log in please");
+    router.push("/log-in");
+  }
   return (
     <div>
       <div className="flex flex-col items-center justify-center space-y-4">
