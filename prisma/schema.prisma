@@ -9,10 +9,10 @@ generator client {
 }
 
 datasource db {
-  provider = "sqlite"
-  url      = "file:./dev.db"
+  provider     = "sqlite"
+  url          = "file:./dev.db"
   // referentialIntegrity = "prisma"
-  // relationMode = "prisma"
+  relationMode = "prisma"
 }
 
 model User {

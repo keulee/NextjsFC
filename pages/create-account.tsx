@@ -5,6 +5,8 @@ import Input from "../components/input";
 import cls from "../lib/utils";
 import useMutate from "../lib/useMutate";
 import { useRouter } from "next/router";
+import { useEffect } from "react";
+import Head from "next/head";
 
 interface inputType {
   name: string;
@@ -23,35 +25,32 @@ export default function CreateAccount() {
   const router = useRouter();
   //   console.log(watch());
   const onValid = (input: inputType) => {
-    // console.log(data);
-    // const response = await fetch("/api/users/create-account", {
-    //   method: "POST",
-    //   headers: { "Content-Type": "application/json" },
-    //   body: JSON.stringify(input),
-    // });
-    // console.log(response);
-    // console.log(response);
     create(input);
-    // console.log(loading);
-    // console.log(error);
   };
 
   const onError = (error: any) => {
     console.log(error);
   };
-  console.log(data?.ok, loading, error);
-  if (data?.ok && data?.isExisted) {
-    alert("Account alread existed! Log in please");
+  // console.log(data?.ok, loading, error);
+  useEffect(() => {
+    if (data?.ok && data?.isExisted) {
+      alert("Account already existed! Log in please");
+      router.push("/log-in");
+    }
+    if (data?.ok && !data?.isExisted) {
+      alert("Account created ! Log in please");
+      router.push("/log-in");
+    }
+  }, [data]);
+  const goLoginPage = () => {
     router.push("/log-in");
-  }
-  if (data?.ok && !data?.isExisted) {
-    alert("Account created ! Log in please");
-    router.push("/log-in");
-  }
+  };
   return (
     <div>
-      <div className="flex flex-col items-center justify-center space-y-4">
+      <Head>
         <title>My Mini Tweet | Create Account</title>
+      </Head>
+      <div className="flex flex-col items-center mt-56 space-y-4">
         <div className="text-7xl">MY MiNi X TWEET '3'</div>
         <div className="text-3xl">Welcome to My MiNi X Tweet!</div>
         <div className="text-lg pb-5">
@@ -87,9 +86,15 @@ export default function CreateAccount() {
             <p className={cls("mb-7 text-pink-600")}>{errors?.name?.message}</p>
           ) : null}
           <button className="font-normal border-2 w-2/3 h-10 rounded-md bg-sky-500 text-white mb-7">
-            Let's Create Account !
+            {loading ? "Loading..." : "Let's Create Account !"}
           </button>
         </form>
+        <button
+          onClick={goLoginPage}
+          className="font-normal border-2 w-1/6 h-10 rounded-md bg-slate-400 text-white mb-7"
+        >
+          I Already have an account
+        </button>
       </div>
     </div>
   );
