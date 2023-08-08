@@ -25,6 +25,6 @@ export default function useMutate(
       .catch(setError)
       .finally(() => setLoading(false));
   };
-  console.log(data);
+  //   console.log(data);
   return [fn, { data, loading, error }];
 }

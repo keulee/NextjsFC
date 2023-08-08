@@ -52,8 +52,8 @@ export default function CreateAccount() {
     <div>
       <div className="flex flex-col items-center justify-center space-y-4">
         <title>My Mini Tweet | Create Account</title>
-        <div className="text-7xl">MY MiNi TWEET '3'</div>
-        <div className="text-3xl">Welcome to My MiNi Tweet!</div>
+        <div className="text-7xl">MY MiNi X TWEET '3'</div>
+        <div className="text-3xl">Welcome to My MiNi X Tweet!</div>
         <div className="text-lg pb-5">
           Create your account and share your think with others :)
         </div>
