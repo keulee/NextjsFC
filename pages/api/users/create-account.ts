@@ -1,20 +1,18 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import db from "../../../lib/db";
+import withHandler from "../../../lib/withHandler";
 
-export default async function CreateAccountApi(
-  req: NextApiRequest,
-  res: NextApiResponse
-) {
+async function handler(req: NextApiRequest, res: NextApiResponse) {
   //   console.log(req.body);
   const { name, email } = req.body;
-  const { method } = req;
+  // const { method } = req;
   //   console.log(method);
   //   console.log(name);
   //   console.log(email);
-  if (method !== "POST") {
-    return res.status(500).json({ ok: false });
-    // return { ok: false };
-  }
+  // if (method !== "POST") {
+  // return res.status(500).json({ ok: false });
+  // return { ok: false };
+  // }
   const user = await db?.user.findUnique({
     where: {
       email,
@@ -40,3 +38,5 @@ export default async function CreateAccountApi(
   //   });
   //   res.status(200).end();
 }
+
+export default withHandler({ methods: ["POST"], handler, isPrivate: false });

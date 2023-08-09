@@ -38,20 +38,20 @@ export default function LogIn() {
     // console.log(error);
   };
 
+  console.log("log-in.tsx->", data?.ok, loading, error);
   const onError = (error: any) => {
     console.log(error);
   };
-  console.log(data?.ok, loading, error);
   useEffect(() => {
-    if (data?.ok && data?.userValid) {
+    if (data?.ok) {
       alert("Welcome!");
       router.replace("/");
     }
-    if (data?.ok && data?.userValid === false) {
+    if (data?.ok === false) {
       alert("User not found. Verify your email please");
       reset();
     }
-  }, [data]);
+  }, [data, router]);
   const toCreateAccount = () => {
     router.push("/create-account");
   };
