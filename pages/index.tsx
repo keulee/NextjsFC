@@ -17,13 +17,8 @@ export default () => (
       <div>Let theme hear your stories and connect with others :D</div>
     </div>
     <div className="flex flex-col space-y-5 py-10 px-96">
-      {[1, 1, 1, 1, 1, 1].map((product) => (
-        <Tweet
-          id={product.id}
-          key={product.id}
-          title="hello world"
-          hearts={1}
-        />
+      {[1, 1, 1, 1, 1, 1].map((product, index) => (
+        <Tweet id={index} key={index} title="hello world" hearts={1} />
       ))}
       {/* <FloatingButton href="/products/upload">
         <svg
