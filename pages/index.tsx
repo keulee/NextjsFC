@@ -4,15 +4,25 @@ import Tweet from "../components/tweet";
 import FlottingButton from "../components/flottingButton";
 import useUser from "../lib/useUser";
 import { useRouter } from "next/router";
+import useSWR from "swr";
+import { Post } from "@prisma/client";
+import ButtonProfile from "../components/ButtonProfile";
 
 //로그인 여부를 확인하여 로그인이 되어있다면 홈페이지를 그렇지 않다면 계정 생성 / 로그인 페이지로 이동하세요.
 //After logging in, in the Home Page, the user should see all the Tweets on the database, the user should also be able to POST a Tweet.
 //로그인이 완료되었을 경우, 사용자는 데이터베이스에 존재하는 모든 트윗을 볼 수 있어야 합니다.
 //또한 트윗을 작성할 수 있어야 합니다.
 
+interface TweetType {
+  ok: boolean;
+  tweets: Post[];
+}
+
 export default () => {
   const { user, isLoading } = useUser();
   console.log("index.tsx->", user);
+  const { data } = useSWR<TweetType>("/api/tweets");
+  console.log("tweet api->", data);
   // const router = useRouter();
   // if (!user) {
   // router.replace("/create-account");
@@ -27,9 +37,23 @@ export default () => {
         <div>Let them hear your stories and connect with others :D</div>
       </div>
       <div className="flex flex-col space-y-5 py-10 px-96">
-        {[1, 1, 1, 1, 1, 1].map((tweet, index) => (
-          <Tweet id={index} key={index} title="hello world" hearts={1} />
+        {data?.tweets?.map((tweet) => (
+          <Tweet
+            id={tweet.id}
+            key={tweet.id}
+            title={tweet.title}
+            text={tweet.text}
+            hearts={1}
+          />
         ))}
+        {/* {data?.tweets?.map((tweet: any) => (
+          <Tweet
+            id={tweet.id}
+            key={tweet.id}
+            title={tweet.title}
+            hearts={tweet.heart}
+          />
+        ))} */}
         <FlottingButton href="/tweets/create">
           <svg
             className="h-10 w-10"
@@ -44,6 +68,20 @@ export default () => {
             />
           </svg>
         </FlottingButton>
+        <ButtonProfile href={`/users/profiles/${user?.id}`}>
+          <svg
+            className="h-10 w-10"
+            viewBox="0 0 24 24"
+            fill="white"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M 12 2.0996094 L 1 12 L 4 12 L 4 21 L 11 21 L 11 15 L 13 15 L 13 21 L 20 21 L 20 12 L 23 12 L 12 2.0996094 z M 12 4.7910156 L 18 10.191406 L 18 11 L 18 19 L 15 19 L 15 13 L 9 13 L 9 19 L 6 19 L 6 10.191406 L 12 4.7910156 z"
+              stroke="white"
+              strokeWidth="1"
+            />
+          </svg>
+        </ButtonProfile>
       </div>
     </div>
   );

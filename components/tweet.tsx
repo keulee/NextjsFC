@@ -3,10 +3,11 @@ import Link from "next/link";
 interface argType {
   title: string;
   id: number;
+  text: string;
   hearts: number;
 }
 
-export default function Tweet({ title, id, hearts }: argType) {
+export default function Tweet({ title, id, text, hearts }: argType) {
   return (
     <Link
       legacyBehavior
@@ -20,8 +21,8 @@ export default function Tweet({ title, id, hearts }: argType) {
         <div className="flex space-x-4">
           {/* <div className="w-20 h-20 bg-sky-500 rounded-md" /> */}
           <div className="pt-2 flex flex-col">
-            <h3 className="text-2xl font-medium text-gray-900 pl-2">"hello"</h3>
-            <span className="font-base mt-1 text-gray-900 pl-2">"Tag"</span>
+            <h3 className="text-2xl font-medium text-gray-900 pl-2">{title}</h3>
+            <span className="font-base mt-1 text-gray-900 pl-2">{text}</span>
           </div>
         </div>
         <div className="flex space-x-2 items-end justify-end">
@@ -40,7 +41,7 @@ export default function Tweet({ title, id, hearts }: argType) {
                 d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
               ></path>
             </svg>
-            <span className="pr-2 pb-2">"hearts"</span>
+            <span className="pr-2 pb-2">{hearts}</span>
           </div>
         </div>
       </a>

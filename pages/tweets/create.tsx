@@ -2,8 +2,7 @@ import { useForm } from "react-hook-form";
 import Input from "../../components/input";
 import TextArea from "../../components/textArea";
 import useMutate from "../../lib/useMutate";
-import { Post } from "@prisma/client";
-import { ChangeEvent, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 
 interface CreateTweetForm {
@@ -11,11 +10,6 @@ interface CreateTweetForm {
   text: string;
   image?: FileList;
 }
-
-// interface DataForm {
-//   ok: boolean;
-//   tweet: Post;
-// }
 
 export default function TweetCreate() {
   const { register, handleSubmit } = useForm<CreateTweetForm>();
@@ -29,7 +23,7 @@ export default function TweetCreate() {
   console.log("create.ts->", data, loading);
   useEffect(() => {
     if (data?.ok) {
-      router.push(`/tweets/${data.tweet.id}`);
+      router.replace(`/tweets/${data.tweet.id}`);
       // console.log(data.product);
     }
   }, [data]);
@@ -90,9 +84,9 @@ export default function TweetCreate() {
                 accept="image/*"
                 className="hidden"
                 type="file"
-                // onChange={(e) => {
-                // encodeFileToBase64(e.target?.files[0]);
-                // }}
+                onChange={(e) => {
+                  encodeFileToBase64(e?.target?.files[0]);
+                }}
               />
             </label>
           </div>
