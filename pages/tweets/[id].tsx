@@ -10,6 +10,7 @@ import { Post, User } from "@prisma/client";
 import useSWR from "swr";
 import Head from "next/head";
 import FlottingButton from "../../components/flottingButton";
+import Tag from "../../components/tag";
 
 interface TweetWithUser extends Post {
   user: User;
@@ -89,6 +90,11 @@ export default function TweetId() {
                 </button>
               </div>
             </div>
+          </div>
+          <div>
+            {data?.tweet.tag?.split(",").map((tag, index) => (
+              <Tag id={data.tweet.id} key={index} tag={tag.trim()} />
+            ))}
           </div>
         </div>
         <FlottingButton href="/">

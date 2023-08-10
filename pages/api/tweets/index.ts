@@ -5,12 +5,20 @@ import withHandler from "../../../lib/withHandler";
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method === "GET") {
-    const tweets = await db.post.findMany({});
+    const tweets = await db.post.findMany({
+      include: {
+        user: {
+          select: {
+            name: true,
+          },
+        },
+      },
+    });
     res.json({ ok: true, tweets });
   }
   if (req.method === "POST") {
     const {
-      body: { title, text, image },
+      body: { title, text, image, tag },
       session: { user },
     } = req;
     const tweet = await db.post.create({
@@ -18,6 +26,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
         title,
         text,
         image: "xx",
+        tag: tag,
         user: {
           connect: {
             id: user?.id,

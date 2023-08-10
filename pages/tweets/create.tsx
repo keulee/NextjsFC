@@ -4,10 +4,12 @@ import TextArea from "../../components/textArea";
 import useMutate from "../../lib/useMutate";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
+import FlottingButton from "../../components/flottingButton";
 
 interface CreateTweetForm {
   title: string;
   text: string;
+  tag?: string;
   image?: FileList;
 }
 
@@ -59,36 +61,12 @@ export default function TweetCreate() {
             required
           />
           <div>
-            upload photos
-            <label className="w-full cursor-pointer text-gray-600 hover:border-orange-500 hover:text-orange-500 flex items-center justify-center border-2 border-dashed border-gray-300 h-48 rounded-md">
-              {!imageSrc ? (
-                <svg
-                  className="h-12 w-12"
-                  stroke="currentColor"
-                  fill="none"
-                  viewBox="0 0 48 48"
-                  aria-hidden="true"
-                >
-                  <path
-                    d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02"
-                    strokeWidth={2}
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                </svg>
-              ) : (
-                <img className="h-48" src={imageSrc} />
-              )}
-              <input
-                // {...register("image")}
-                accept="image/*"
-                className="hidden"
-                type="file"
-                onChange={(e) => {
-                  encodeFileToBase64(e?.target?.files[0]);
-                }}
-              />
-            </label>
+            <Input
+              register={register("tag")}
+              label="Tag"
+              type="text"
+              placeholder="daybyday, meme, joke, ..."
+            />
           </div>
           <div className="flex justify-center">
             <button className="border-2 rounded-md bg-sky-500 text-white w-32 h-10">
@@ -96,6 +74,20 @@ export default function TweetCreate() {
             </button>
           </div>
         </form>
+        <FlottingButton href="/">
+          <svg
+            className="h-10 w-10"
+            viewBox="0 0 24 24"
+            fill="white"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M 12 2.0996094 L 1 12 L 4 12 L 4 21 L 11 21 L 11 15 L 13 15 L 13 21 L 20 21 L 20 12 L 23 12 L 12 2.0996094 z M 12 4.7910156 L 18 10.191406 L 18 11 L 18 19 L 15 19 L 15 13 L 9 13 L 9 19 L 6 19 L 6 10.191406 L 12 4.7910156 z"
+              stroke="white"
+              strokeWidth="1"
+            />
+          </svg>
+        </FlottingButton>
       </div>
     </div>
   );

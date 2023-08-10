@@ -5,7 +5,7 @@ import FlottingButton from "../components/flottingButton";
 import useUser from "../lib/useUser";
 import { useRouter } from "next/router";
 import useSWR from "swr";
-import { Post } from "@prisma/client";
+import { Post, User } from "@prisma/client";
 import ButtonProfile from "../components/ButtonProfile";
 
 //로그인 여부를 확인하여 로그인이 되어있다면 홈페이지를 그렇지 않다면 계정 생성 / 로그인 페이지로 이동하세요.
@@ -13,9 +13,13 @@ import ButtonProfile from "../components/ButtonProfile";
 //로그인이 완료되었을 경우, 사용자는 데이터베이스에 존재하는 모든 트윗을 볼 수 있어야 합니다.
 //또한 트윗을 작성할 수 있어야 합니다.
 
+interface tweetWithUser extends Post {
+  user: User;
+}
+
 interface TweetType {
   ok: boolean;
-  tweets: Post[];
+  tweets: tweetWithUser[];
 }
 
 export default () => {
@@ -36,24 +40,25 @@ export default () => {
         <div className="text-8xl">Hi {user?.name} !</div>
         <div>Let them hear your stories and connect with others :D</div>
       </div>
-      <div className="flex flex-col space-y-5 py-10 px-96">
-        {data?.tweets?.map((tweet) => (
-          <Tweet
-            id={tweet.id}
-            key={tweet.id}
-            title={tweet.title}
-            text={tweet.text}
-            hearts={1}
-          />
-        ))}
-        {/* {data?.tweets?.map((tweet: any) => (
-          <Tweet
-            id={tweet.id}
-            key={tweet.id}
-            title={tweet.title}
-            hearts={tweet.heart}
-          />
-        ))} */}
+      <div>
+        {data?.tweets ? (
+          <div className="flex flex-col space-y-5 py-10 px-96">
+            {data?.tweets?.map((tweet) => (
+              <Tweet
+                id={tweet.id}
+                key={tweet.id}
+                title={tweet.title}
+                text={tweet.text}
+                userName={tweet.user?.name}
+                hearts={1}
+              />
+            ))}
+          </div>
+        ) : (
+          <div className="text-center mt-40">
+            <h1>There's no story ! Start with your stories first :D</h1>
+          </div>
+        )}
         <FlottingButton href="/tweets/create">
           <svg
             className="h-10 w-10"
