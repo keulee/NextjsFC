@@ -7,7 +7,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
   console.log("req.body->", req.body);
   const {
     query: { id },
-    // session: { user },
+    session: { user },
   } = req;
   const tweet = await db.post.findUnique({
     where: {
@@ -23,10 +23,22 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
       },
     },
   });
+  const isLiked = Boolean(
+    await db.fav.findFirst({
+      where: {
+        postId: tweet?.id,
+        userId: user?.id,
+      },
+      select: {
+        id: true,
+      },
+    })
+  );
   // res.status(200);
   res.json({
     ok: true,
     tweet,
+    isLiked,
   });
 }
 

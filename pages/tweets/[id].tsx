@@ -11,6 +11,7 @@ import useSWR from "swr";
 import Head from "next/head";
 import FlottingButton from "../../components/flottingButton";
 import Tag from "../../components/tag";
+import useMutate from "../../lib/useMutate";
 
 interface TweetWithUser extends Post {
   user: User;
@@ -19,6 +20,7 @@ interface TweetWithUser extends Post {
 interface tweetDataType {
   ok: boolean;
   tweet: TweetWithUser;
+  isLiked: Boolean;
 }
 
 export default function TweetId() {
@@ -26,11 +28,19 @@ export default function TweetId() {
   console.log("tweets/[id]->", user, isLoading);
   const router = useRouter();
   console.log("router.query =>", router.query);
-  const { data } = useSWR<tweetDataType>(
+  const { data, mutate } = useSWR<tweetDataType>(
     router.query.id ? `/api/tweets/${router.query.id}` : null
   );
   console.log("tweet/[id]->", data);
-
+  const [toggleFav] = useMutate(`/api/tweets/${router.query.id}/fav`);
+  const onFavClick = () => {
+    // console.log("here");
+    if (!isLoading) {
+      toggleFav({});
+    }
+    if (!data) return;
+    mutate((prev) => prev && { ...prev, isLiked: !data.isLiked }, false);
+  };
   return (
     <div>
       <Head>
@@ -65,19 +75,18 @@ export default function TweetId() {
             <div>
               <div className="flex items-center justify-between space-x-2">
                 <button
+                  onClick={onFavClick}
                   className={cls(
-                    "p-3 rounded-md flex items-center hover:bg-gray-100 justify-center"
-                    // data?.isLiked
-                    // ? "text-red-400 hover:text-red-500"
-                    // : "text-gray-400 hover:text-gray-500"
+                    "p-3 rounded-md flex items-center hover:bg-gray-100 justify-center",
+                    data?.isLiked ? "text-red-400 " : "text-gray-400"
                   )}
                 >
                   <svg
                     className="h-6 w-6 "
                     xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
+                    fill={data?.isLiked ? "tomato" : "none"}
                     viewBox="0 0 24 24"
-                    stroke="currentColor"
+                    stroke={data?.isLiked ? "tomato" : "currentColor"}
                     aria-hidden="true"
                   >
                     <path

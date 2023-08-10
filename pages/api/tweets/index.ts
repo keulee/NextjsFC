@@ -7,6 +7,11 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method === "GET") {
     const tweets = await db.post.findMany({
       include: {
+        _count: {
+          select: {
+            Fav: true,
+          },
+        },
         user: {
           select: {
             name: true,

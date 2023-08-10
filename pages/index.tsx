@@ -15,6 +15,7 @@ import ButtonProfile from "../components/ButtonProfile";
 
 interface tweetWithUser extends Post {
   user: User;
+  _count: { Fav: number };
 }
 
 interface TweetType {
@@ -50,7 +51,7 @@ export default () => {
                 title={tweet.title}
                 text={tweet.text}
                 userName={tweet.user?.name}
-                hearts={1}
+                hearts={tweet._count.Fav}
               />
             ))}
           </div>

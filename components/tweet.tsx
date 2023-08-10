@@ -33,8 +33,8 @@ export default function Tweet({ title, id, text, hearts, userName }: argType) {
           <div className="flex space-x-0.5 items-center text-sm  text-gray-600">
             <svg
               className="w-4 h-4"
-              fill="none"
-              stroke="currentColor"
+              fill={hearts ? "tomato" : "none"}
+              stroke={hearts ? "tomato" : "currentColor"}
               viewBox="0 0 24 24"
               xmlns="http://www.w3.org/2000/svg"
             >
