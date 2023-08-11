@@ -43,7 +43,7 @@ export default () => {
       </div>
       <div>
         {data?.tweets ? (
-          <div className="flex flex-col space-y-5 py-10 px-96">
+          <div className=" flex flex-col space-y-5 py-10 px-96">
             {data?.tweets?.map((tweet) => (
               <Tweet
                 id={tweet.id}

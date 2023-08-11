@@ -1,3 +1,4 @@
+import { Post } from "@prisma/client";
 import { NextApiRequest, NextApiResponse } from "next";
 import { withApiSession } from "../../../lib/withSession";
 import withHandler from "../../../lib/withHandler";
@@ -11,6 +12,13 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
   }
   const profile = await db.user.findUnique({
     where: { id: userId },
+    include: {
+      Fav: {
+        include: {
+          post: true,
+        },
+      },
+    },
   });
   // console.log(profile);
   return res.json({ ok: true, profile });

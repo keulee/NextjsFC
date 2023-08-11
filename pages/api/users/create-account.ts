@@ -45,7 +45,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
       data: {
         name,
         email,
-        avatar: "tmp",
+        avatar: "xx",
       },
     });
     return res.status(200).json({ ok: true, isExisted: false });

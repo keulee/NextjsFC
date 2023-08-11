@@ -52,7 +52,7 @@ export default function TweetId() {
       <div className="flex flex-col space-y-5 py-10 px-96">
         <div className="mb-8 border px-5 py-5 border-sky-500 rounded-md">
           {/* <div className="h-96 bg-slate-300" /> */}
-          <div className="flex cursor-pointer py-3 border-b border-dotted border-sky-500 items-center space-x-3 -mt-2">
+          <div className="flex py-3 border-b border-dotted border-sky-500 items-center space-x-3 -mt-2">
             <img
               className="rounded-full"
               src="/images/cat/cat02.jpeg"
@@ -62,7 +62,7 @@ export default function TweetId() {
             />
 
             <div>
-              <p className="text-sm font-medium text-gray-700">
+              <p className="text-sm font-semibold text-gray-700">
                 {data?.tweet?.user?.name}
               </p>
               <Link
@@ -142,7 +142,7 @@ export default function TweetId() {
               ))}
             </div>
           ) : (
-            <div className="p-5"></div>
+            <div className="p-5">Not Yet !</div>
           )}
         </div>
         <FlottingButton href="/">
