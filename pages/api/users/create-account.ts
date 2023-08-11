@@ -2,9 +2,27 @@ import { NextApiRequest, NextApiResponse } from "next";
 import db from "../../../lib/db";
 import withHandler from "../../../lib/withHandler";
 
+// const RandomPhoto = (): string => {
+//   const photos = [
+//     "/images/cat/cat00.jpeg",
+//     "/images/cat/cat01.jpeg",
+//     "/images/cat/cat02.jpeg",
+//     "/images/cat/cat03.jpeg",
+//     "/images/cat/cat04.jpeg",
+//     "/images/cat/cat05.jpeg",
+//     "/images/cat/dog00.jpeg",
+//     "/images/cat/dog01.jpeg",
+//     "/images/cat/dog02.jpeg",
+//     "/images/cat/dog03.jpeg",
+//   ];
+//   return photos[Math.floor(Math.random() * photos.length)];
+// };
+
 async function handler(req: NextApiRequest, res: NextApiResponse) {
   //   console.log(req.body);
   const { name, email } = req.body;
+  // const photo = RandomPhoto();
+  // console.log("photo? =>", photo);
   // const { method } = req;
   //   console.log(method);
   //   console.log(name);
@@ -27,7 +45,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
       data: {
         name,
         email,
-        avatar: "xx",
+        avatar: "tmp",
       },
     });
     return res.status(200).json({ ok: true, isExisted: false });

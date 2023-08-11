@@ -26,6 +26,10 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
       body: { title, text, image, tag },
       session: { user },
     } = req;
+    // console.log(tag);
+    //태그 다시 만들어줘야됨. 중간 공백 없애고 toLowerCase하기
+    // const TagWithoutComma = tag.split(",").split(" ");
+    // console.log(TagWithoutComma;
     const tweet = await db.post.create({
       data: {
         title,

@@ -49,7 +49,11 @@ export default () => {
                 id={tweet.id}
                 key={tweet.id}
                 title={tweet.title}
-                text={tweet.text}
+                text={
+                  tweet.text.length > 70
+                    ? `${tweet.text.substring(0, 70)} ...(read mord) `
+                    : tweet.text
+                }
                 userName={tweet.user?.name}
                 hearts={tweet._count.Fav}
               />

@@ -21,6 +21,7 @@ interface TweetWithUser extends Post {
 interface tweetDataType {
   ok: boolean;
   tweet: TweetWithUser;
+  relatedTweet: Post[];
   isLiked: Boolean;
 }
 
@@ -42,26 +43,11 @@ export default function TweetId() {
     if (!data) return;
     mutate((prev) => prev && { ...prev, isLiked: !data.isLiked }, false);
   };
-  const RandomPhoto = (): string => {
-    const photos = [
-      "/images/cat/cat00.jpeg",
-      "/images/cat/cat01.jpeg",
-      "/images/cat/cat02.jpeg",
-      "/images/cat/cat03.jpeg",
-      "/images/cat/cat04.jpeg",
-      "/images/cat/cat05.jpeg",
-      "/images/cat/dog00.jpeg",
-      "/images/cat/dog01.jpeg",
-      "/images/cat/dog02.jpeg",
-      "/images/cat/dog03.jpeg",
-    ];
-    return photos[Math.floor(Math.random() * photos.length)];
-  };
 
   return (
     <div>
       <Head>
-        <title>My Mini Tweet | {data?.tweet.title} </title>
+        <title>{`My Mini Tweet | ${data?.tweet.title}`}</title>
       </Head>
       <div className="flex flex-col space-y-5 py-10 px-96">
         <div className="mb-8 border px-5 py-5 border-sky-500 rounded-md">
@@ -69,7 +55,7 @@ export default function TweetId() {
           <div className="flex cursor-pointer py-3 border-b border-dotted border-sky-500 items-center space-x-3 -mt-2">
             <img
               className="rounded-full"
-              src={RandomPhoto()}
+              src="/images/cat/cat02.jpeg"
               width="70px"
               height="70px"
               alt="tmpPhoto"
@@ -124,11 +110,40 @@ export default function TweetId() {
               </div>
             </div>
           </div>
-          <div>
-            {data?.tweet.tag?.split(",").map((tag, index) => (
-              <Tag id={data.tweet.id} key={index} tag={tag.trim()} />
-            ))}
-          </div>
+          {data?.tweet?.tag ? (
+            <div>
+              {data?.tweet?.tag?.split(",").map((tag, index) => (
+                <Tag id={data.tweet.id} key={index} tag={tag.trim()} />
+              ))}
+            </div>
+          ) : null}
+        </div>
+        <div className="border rounded-md p-2">
+          <h2 className="text-xl font-bold text-gray-900 border-b pb-2">
+            Tweets with Same Tags
+          </h2>
+          {data?.tweet?.tag ? (
+            <div className="mt-6 grid grid-cols-2 gap-4">
+              {data?.relatedTweet?.map((post) => (
+                <Link href={`${post.id}`}>
+                  <a>
+                    <div key={post.id} className="m-2">
+                      <h3 className="text-gray-700 -mb-1 text-lg font-bold">
+                        {post.title}
+                      </h3>
+                      <h3 className="text-gray-700 -mb-1">
+                        {post.text.length >= 100
+                          ? `${post.text.substring(0, 100)}...(read more)`
+                          : post.text}
+                      </h3>
+                    </div>
+                  </a>
+                </Link>
+              ))}
+            </div>
+          ) : (
+            <div className="p-5"></div>
+          )}
         </div>
         <FlottingButton href="/">
           <svg

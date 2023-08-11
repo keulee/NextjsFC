@@ -24,7 +24,9 @@ export default function Tweet({ title, id, text, hearts, userName }: argType) {
           <div className="pt-2 flex flex-col w-full">
             <div className="flex bg-sky-50 w-full justify-between pr-2">
               <h3 className="text-2xl font-bold text-gray-900 pl-2">{title}</h3>
-              <h3 className="text-l text-gray-900 pl-2">{userName}</h3>
+              <h3 className="text-l text-gray-900 pl-2 font-semibold">
+                {userName}
+              </h3>
             </div>
             <span className="font-base mt-1 text-gray-900 pl-2">{text}</span>
           </div>
