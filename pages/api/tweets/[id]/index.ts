@@ -35,10 +35,11 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
     },
   }));
   // console.log(tweet);
-  console.log(cleanTags);
+  console.log("cleanTag->", cleanTags);
+  cleanTags === null ? null : cleanTags;
   const relatedTweet = await db.post.findMany({
     where: {
-      OR: cleanTags,
+      OR: cleanTags === undefined ? [] : cleanTags,
       AND: {
         id: {
           not: tweet?.id,
@@ -58,7 +59,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
     })
   );
   // res.status(200);
-  console.log(relatedTweet);
+  console.log("related Tweet->", relatedTweet);
   res.json({
     ok: true,
     tweet,

@@ -38,12 +38,12 @@ export default () => {
         <title>My Mini Tweet | MiNi X Tweet</title>
       </Head>
       <div className="flex flex-col items-center mt-10 font-semibold">
-        <div className="text-8xl">Hi {user?.name} !</div>
+        <div className="sm:text-7xl xl:text-8xl">Hi {user?.name} !</div>
         <div>Let them hear your stories and connect with others :D</div>
       </div>
       <div>
         {data?.tweets ? (
-          <div className=" flex flex-col space-y-5 py-10 px-96">
+          <div className=" flex flex-col space-y-3 py-10 sm:px-24 2xl:px-96">
             {data?.tweets?.map((tweet) => (
               <Tweet
                 id={tweet.id}

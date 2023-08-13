@@ -1,5 +1,6 @@
 import useSWR from "swr";
 import useUser from "../../../lib/useUser";
+import FlottingButton from "../../../components/flottingButton";
 
 export default function Profile() {
   const { user, isLoading } = useUser();
@@ -30,6 +31,20 @@ export default function Profile() {
         </div>
         <button onClick={handleLogout}>Log out</button>
       </div>
+      <FlottingButton href="/">
+        <svg
+          className="h-10 w-10"
+          viewBox="0 0 24 24"
+          fill="white"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M 12 2.0996094 L 1 12 L 4 12 L 4 21 L 11 21 L 11 15 L 13 15 L 13 21 L 20 21 L 20 12 L 23 12 L 12 2.0996094 z M 12 4.7910156 L 18 10.191406 L 18 11 L 18 19 L 15 19 L 15 13 L 9 13 L 9 19 L 6 19 L 6 10.191406 L 12 4.7910156 z"
+            stroke="white"
+            strokeWidth="1"
+          />
+        </svg>
+      </FlottingButton>
     </div>
   );
 }

@@ -49,9 +49,8 @@ export default function TweetId() {
       <Head>
         <title>{`My Mini Tweet | ${data?.tweet.title}`}</title>
       </Head>
-      <div className="flex flex-col space-y-5 py-10 px-96">
+      <div className="flex flex-col space-y-5 py-10 sm:px-24 2xl:px-96">
         <div className="mb-8 border px-5 py-5 border-sky-500 rounded-md">
-          {/* <div className="h-96 bg-slate-300" /> */}
           <div className="flex py-3 border-b border-dotted border-sky-500 items-center space-x-3 -mt-2">
             <img
               className="rounded-full"
@@ -122,12 +121,12 @@ export default function TweetId() {
           <h2 className="text-xl font-bold text-gray-900 border-b pb-2">
             Tweets with Same Tags
           </h2>
-          {data?.tweet?.tag ? (
-            <div className="mt-6 grid grid-cols-2 gap-4">
-              {data?.relatedTweet?.map((post) => (
-                <Link href={`${post.id}`}>
+          {data?.relatedTweet.length !== 0 ? (
+            <div className="mt-6 grid xl:grid-cols-2 sm:grid-cols-1 gap-4">
+              {data?.relatedTweet?.map((post, index) => (
+                <Link key={index} href={`${post.id}`}>
                   <a>
-                    <div key={post.id} className="m-2">
+                    <div className="m-2">
                       <h3 className="text-gray-700 -mb-1 text-lg font-bold">
                         {post.title}
                       </h3>
