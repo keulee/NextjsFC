@@ -51,13 +51,13 @@ export default function CreateAccount() {
         <title>My Mini Tweet | Create Account</title>
       </Head>
       <div className="flex flex-col items-center mt-56 space-y-4">
-        <div className="text-7xl">MY MiNi X TWEET '3'</div>
+        <div className="sm:text-6xl xl:text-7xl">MY MiNi X TWEET '3'</div>
         <div className="text-3xl">Welcome to My MiNi X Tweet!</div>
         <div className="text-lg pb-5">
           Create your account and share your think with others :)
         </div>
         <form
-          className="flex flex-col items-center border w-1/4"
+          className="flex flex-col items-center border 2xl:w-1/4"
           onSubmit={handleSubmit(onValid, onError)}
         >
           <div className="p-11 rounded-md space-y-5 w-full">
@@ -91,7 +91,7 @@ export default function CreateAccount() {
         </form>
         <button
           onClick={goLoginPage}
-          className="font-normal border-2 w-1/6 h-10 rounded-md bg-slate-400 text-white mb-7"
+          className="font-normal border-2 xl:w-1/6 h-10 rounded-md bg-slate-400 text-white mb-7"
         >
           I Already have an account
         </button>

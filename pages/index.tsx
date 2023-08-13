@@ -35,7 +35,7 @@ export default () => {
   return (
     <div>
       <Head>
-        <title>My Mini Tweet | MiNi X Tweet</title>
+        <title>My Mini X Tweet | Home</title>
       </Head>
       <div className="flex flex-col items-center mt-10 font-semibold">
         <div className="sm:text-7xl xl:text-8xl">Hi {user?.name} !</div>

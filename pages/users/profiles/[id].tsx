@@ -3,6 +3,7 @@ import useUser from "../../../lib/useUser";
 import FlottingButton from "../../../components/flottingButton";
 import { Fav, User } from "@prisma/client";
 import Link from "next/link";
+import Head from "next/head";
 
 interface userWithFav extends User {
   Fav: Fav[];
@@ -19,6 +20,9 @@ export default function Profile() {
   // const {detail } =useSWr("")
   return (
     <div>
+      <Head>
+        <title>My Mini X Tweet | Profile</title>
+      </Head>
       <div className="flex flex-col gap-y-10">
         <div className="flex justify-center gap-x-10 mt-10">
           <div className="w-48 h-48 rounded-full bg-slate-500" />
