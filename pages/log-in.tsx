@@ -22,25 +22,15 @@ export default function LogIn() {
   } = useForm<inputType>();
   const [login, { data, loading, error }] = useMutate("/api/users/log-in");
   const router = useRouter();
-
-  //   console.log(watch());
   const onValid = (input: inputType) => {
-    // console.log(data);
-    // const response = await fetch("/api/users/create-account", {
-    //   method: "POST",
-    //   headers: { "Content-Type": "application/json" },
-    //   body: JSON.stringify(input),
-    // });
-    // console.log(response);
-    // console.log(response);
     login(input);
     // console.log(loading);
     // console.log(error);
   };
 
-  console.log("log-in.tsx->", data?.ok, loading, error);
+  // console.log("log-in.tsx->", data?.ok, loading, error);
   const onError = (error: any) => {
-    console.log(error);
+    // console.log(error);
   };
   useEffect(() => {
     if (data?.ok) {
@@ -79,9 +69,6 @@ export default function LogIn() {
               required
             ></Input>
           </div>
-          {/* {data?.userValid === false ? (
-            <p className={cls("mb-7 text-pink-600")}>Mail not found</p>
-          ) : null} */}
           <button className="font-normal border-2 w-1/2 h-10 rounded-md bg-sky-500 text-white mb-7">
             {loading ? "Loading..." : "Login!"}
           </button>

@@ -27,13 +27,13 @@ interface tweetDataType {
 
 export default function TweetId() {
   const { user, isLoading } = useUser();
-  console.log("tweets/[id]->", user, isLoading);
+  // console.log("tweets/[id]->", user, isLoading);
   const router = useRouter();
-  console.log("router.query =>", router.query);
+  // console.log("router.query =>", router.query);
   const { data, mutate } = useSWR<tweetDataType>(
     router.query.id ? `/api/tweets/${router.query.id}` : null
   );
-  console.log("tweet/[id]->", data);
+  // console.log("tweet/[id]->", data);
   const [toggleFav] = useMutate(`/api/tweets/${router.query.id}/fav`);
   const onFavClick = () => {
     // console.log("here");

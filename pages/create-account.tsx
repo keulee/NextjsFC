@@ -29,7 +29,7 @@ export default function CreateAccount() {
   };
 
   const onError = (error: any) => {
-    console.log(error);
+    // console.log(error);
   };
   // console.log(data?.ok, loading, error);
   useEffect(() => {

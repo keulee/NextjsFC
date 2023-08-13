@@ -4,7 +4,7 @@ import withHandler from "../../../../lib/withHandler";
 import { withApiSession } from "../../../../lib/withSession";
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {
-  console.log("req.body->", req.body);
+  // console.log("req.body->", req.body);
   const {
     query: { id },
     session: { user },
@@ -23,11 +23,6 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
       },
     },
   });
-  // const tags = await db.post.findMany({
-  //   select: {
-  //     tag: true,
-  //   },
-  // });
 
   const cleanTags = tweet?.tag?.split(",").map((singleTag) => ({
     tag: {
@@ -35,7 +30,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
     },
   }));
   // console.log(tweet);
-  console.log("cleanTag->", cleanTags);
+  // console.log("cleanTag->", cleanTags);
   cleanTags === null ? null : cleanTags;
   const relatedTweet = await db.post.findMany({
     where: {
@@ -58,8 +53,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
       },
     })
   );
-  // res.status(200);
-  console.log("related Tweet->", relatedTweet);
+  // console.log("related Tweet->", relatedTweet);
   res.json({
     ok: true,
     tweet,

@@ -25,9 +25,9 @@ interface TweetType {
 
 export default () => {
   const { user, isLoading } = useUser();
-  console.log("index.tsx->", user);
+  // console.log("index.tsx->", user);
   const { data } = useSWR<TweetType>("/api/tweets");
-  console.log("tweet api->", data);
+  // console.log("tweet api->", data);
   // const router = useRouter();
   // if (!user) {
   // router.replace("/create-account");

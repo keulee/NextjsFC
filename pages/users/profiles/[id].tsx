@@ -1,18 +1,25 @@
 import useSWR from "swr";
 import useUser from "../../../lib/useUser";
 import FlottingButton from "../../../components/flottingButton";
+import { Fav, User } from "@prisma/client";
+import Link from "next/link";
+
+interface userWithFav extends User {
+  Fav: Fav[];
+}
+
+interface userdataType {
+  user: User;
+  isLoading: boolean;
+}
 
 export default function Profile() {
   const { user, isLoading } = useUser();
-  console.log("here->", user?.name);
+  // console.log("here->", user?.name);
   // const {detail } =useSWr("")
-
-  const handleLogout = (e) => {
-    // console.log(e.tar);
-  };
   return (
     <div>
-      <div className="flex flex-col gap-y-10 h-full w-full">
+      <div className="flex flex-col gap-y-10">
         <div className="flex justify-center gap-x-10 mt-10">
           <div className="w-48 h-48 rounded-full bg-slate-500" />
           <div className="flex flex-col justify-end font-semibold">
@@ -20,16 +27,28 @@ export default function Profile() {
             <div>{user?.email}</div>
           </div>
         </div>
-        <div>My favorite tweets</div>
-        <div className="grid">
-          {user?.Fav?.map((tweet) => (
-            <div key={tweet.id}>
-              <p>{tweet.post.title}</p>
-              <p>{tweet.post.text}</p>
-            </div>
-          ))}
+        <div className="px-5 py-5 rounded-md sm:mx-24 xl:mx-96">
+          <div className="text-xl font-semibold bg-sky-100 text-center mb-5">
+            My favorite tweets
+          </div>
+          <div className="grid grid-cols-1 gap-5">
+            {user?.Fav?.map((tweet) => (
+              <Link href={`/tweets/${tweet.postId}`} key={tweet.id}>
+                <a className="border p-5 border-pink-300 rounded-md">
+                  <div className="text-lg font-semibold mb-2 bg-pink-100">
+                    {tweet.post.title}
+                  </div>
+                  <div>
+                    {tweet.post.text.length >= 100
+                      ? `${tweet.post.text.substring(0, 100)}...(read more)`
+                      : tweet.post.text}
+                  </div>
+                </a>
+              </Link>
+            ))}
+          </div>
         </div>
-        <button onClick={handleLogout}>Log out</button>
+        {/* <button onClick={handleLogout}>Log out</button> */}
       </div>
       <FlottingButton href="/">
         <svg

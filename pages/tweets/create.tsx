@@ -19,11 +19,11 @@ export default function TweetCreate() {
   const [createTweet, { data, loading }] = useMutate("/api/tweets");
   const router = useRouter();
   const onValid = (data: CreateTweetForm) => {
-    console.log(data);
+    // console.log(data);
     if (loading) return;
     createTweet(data);
   };
-  console.log("create.ts->", data, loading);
+  // console.log("create.ts->", data, loading);
   useEffect(() => {
     if (data?.ok) {
       router.replace(`/tweets/${data.tweet.id}`);
